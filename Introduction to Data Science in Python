@@ -38,6 +38,14 @@ label = "Phoenix", label = "Los Angeles" and label = "Philadelphia" represent "l
 
 ######
 
+linestyle = "-", "--", "-.", ":"
+
+market = "x", "s", "o", "d", "*", "h"
+
+plt.style.use() = "fivethirtyeight", "ggplot", "seaborn", "default"
+
+######
+
 # Create a bar plot from the DataFrame hours
 plt.bar(hours.officer, hours.avg_hours_worked,
         # Add error bars
