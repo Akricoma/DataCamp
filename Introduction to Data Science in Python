@@ -19,6 +19,9 @@ https://en.wikipedia.org/wiki/Web_colors
 
 ######
 
+# Change the style to fivethirtyeight
+plt.style.use("fivethirtyeight")
+
 # Change the color of Phoenix to `"DarkCyan"`
 plt.plot(data["Year"], data["Phoenix Police Dept"], label = "Phoenix", color = "DarkCyan")
 
@@ -27,3 +30,27 @@ plt.plot(data["Year"], data["Los Angeles Police Dept"], label = "Los Angeles", l
 
 # Add square markers to Philedelphia
 plt.plot(data["Year"], data["Philadelphia Police Dept"], label = "Philadelphia", marker = "s")
+
+# Make the Philedelphia line wider
+plt.plot(data["Year"], data["Philadelphia Police Dept"], label = "Philadelphia", linewidth = 3)
+
+label = "Phoenix", label = "Los Angeles" and label = "Philadelphia" represent "legends"
+
+######
+
+# Create a bar plot from the DataFrame hours
+plt.bar(hours.officer, hours.avg_hours_worked,
+        # Add error bars
+        yerr = hours.std_hours_worked)
+
+# Plot the hours spent on field work on top of desk work
+plt.bar(hours.officer, hours.field_work, bottom = hours.desk_work, label = "Field Work")
+
+######
+
+# Change the range to start at 5 and end at 35
+plt.hist(puppies.weight,
+        range = (5, 35),
+        # Normalize to 1
+        density = True)
+
