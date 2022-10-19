@@ -1,0 +1,132 @@
+# Relplot: Used for creating relational plots
+# Displot: Used for creating distributions plots
+# Catplot: Used for creating categorical plots
+
+#####
+
+# Create count plot with region on the y-axis
+sns.countplot(y = region, data = _____)
+
+##### Color with Seaborn
+
+# Change the legend order in the scatter plot
+sns.scatterplot(x="absences", y="G3", 
+                data=student_data, 
+                hue="location", hue_order = ["Rural", "Urban"])
+
+##### Palette color
+
+# Create a dictionary mapping subgroup values to colors
+palette_colors = {"Rural": "green", "Urban": "blue"}
+
+# Create a count plot of school with location subgroups
+sns.countplot(x = "school", data = student_data, hue = 'location', palette = palette_colors)
+
+##### Relplot
+sns.relplot(x="G1", y="G3", 
+            data=student_data,
+            kind="scatter", 
+            col="schoolsup",
+            col_order=["yes", "no"],
+            row="famsup",
+            row_order=["yes", "no"],
+            style="____",
+            hue="____",
+            alpha=___)
+
+# Make the shaded area show the standard deviation
+sns.relplot(x="model_year", y="mpg",
+            data=mpg, kind="line", ci='sd')
+
+# Add markers and make each line have the same style
+sns.relplot(x="model_year", y="horsepower", 
+            data=mpg, kind="line", 
+            ci=None, style="origin", 
+            hue="origin",
+            markers=True,
+            dashes=False)
+
+##### Catplot
+# Separate into column subplots based on age category (Switch y to x can flip the graph)
+sns.catplot(y="Internet usage", data=survey_data,
+            kind="count",
+            col='Age Category')
+
+
+# List of categories from lowest to highest
+category_order = ["<2 hours", 
+                  "2 to 5 hours", 
+                  "5 to 10 hours", 
+                  ">10 hours"]
+
+# Turn off the confidence intervals
+sns.catplot(x="study_time", y="G3",
+            data=student_data,
+            kind="bar",
+            order=category_order,
+            ci=None)
+
+# Create a box plot with subgroups and omit the outliers
+sns.catplot(data=student_data,
+            x = "internet", y = "G3",
+            kind = "box", hue = "location", 
+            sym = "")
+
+# Set the whiskers to 0.5 * IQR
+sns.catplot(x="romantic", y="G3",
+            data=student_data,
+            kind="box",
+            whis=0.5)
+
+# Extend the whiskers to the 5th and 95th percentile
+sns.catplot(x="romantic", y="G3",
+            data=student_data,
+            kind="box",
+            whis=[5, 95])
+
+# Add caps to the confidence interval
+# Remove the lines joining the points
+sns.catplot(x="famrel", y="absences",
+			data=student_data,
+            kind="point",
+            capsize=0.2,
+            join=False)
+
+# Import median function from numpy
+from numpy import median
+# Plot the median number of absences instead of the mean
+sns.catplot(x="romantic", y="absences",
+			data=student_data,
+            kind="point",
+            hue="school",
+            ci=None,
+            estimatorl=median)
+
+# Set the style to "whitegrid"
+# Change the color palette to "RdBu"
+# Change the context to "notebook"
+sns.set_style("whitegrid")
+sns.set_palette("RdBu")
+sns.set_context("notebook")
+
+# Set a custom color palette
+sns.set_palette(["#39A7D0", "#36ADA4"])
+
+# Create scatter plot
+g = sns.relplot(x="weight", 
+                y="horsepower", 
+                data=mpg,
+                kind="scatter")
+
+# Add a title "Car Weight vs. Horsepower" for a "FacetGrid"
+g.fig.suptitle("Car Weight vs. Horsepower")
+
+# Add a title "Car Weight vs. Horsepower" for a "AxesSubplot"
+g.set_title("Car Weight vs. Horsepower")
+
+# Add x-axis and y-axis labels
+g.set(xlabel = "Car Model Year",
+      ylabel = "Average MPG")
+
+# Rotate x-tick labels
+plt.xticks(rotation=90)
