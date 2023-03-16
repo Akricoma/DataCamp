@@ -1,0 +1,100 @@
+# Create a figure and an array of axes: 2 rows, 1 column with shared y axis
+fig, ax = plt.subplots(2, 1, sharey=True)
+
+# Plot Seattle precipitation data in the top axes
+ax[0].plot(seattle_weather['MONTH'], seattle_weather['MLY-PRCP-NORMAL'], color = 'b')
+ax[0].plot(seattle_weather['MONTH'], seattle_weather['MLY-PRCP-25PCTL'], color = 'b', linestyle = '--')
+ax[0].plot(seattle_weather['MONTH'], seattle_weather['MLY-PRCP-75PCTL'], color = 'b', linestyle = '--')
+
+# Plot Austin precipitation data in the bottom axes
+ax[1].plot(austin_weather['MONTH'], austin_weather['MLY-PRCP-NORMAL'], color = 'r')
+ax[1].plot(austin_weather['MONTH'], austin_weather['MLY-PRCP-25PCTL'], color = 'r', linestyle = '--')
+ax[1].plot(austin_weather['MONTH'], austin_weather['MLY-PRCP-25PCTL'], color = 'r', linestyle = '--')
+
+plt.show()
+
+*****
+
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Read the data from file using read_csv
+climate_change = pd.read_csv('climate_change.csv', parse_dates = ['date'], index_col = 'date')
+
+# Initalize a Figure and Axes
+fig, ax = plt.subplots()
+
+# Plot the CO2 variable in blue
+ax.plot(climate_change.index, climate_change['co2'], color = 'b')
+
+# Create a twin Axes that shares the x-axis
+ax2 = ax.twinx()
+
+# Plot the relative temperature in red
+ax2.plot(climate_change.index, climate_change['relative_temp'], color = 'r')
+
+plt.show()
+
+
+# Define a function called plot_timeseries
+def plot_timeseries(axes, x, y, color, xlabel, ylabel):
+
+  # Plot the inputs x,y in the provided color
+  axes.plot(x, y, color = color)
+
+  # Set the x-axis label
+  axes.set_xlabel(xlabel)
+
+  # Set the y-axis label
+  axes.set_ylabel(ylabel, color = color)
+
+  # Set the colors tick params for y-axis
+  axes.tick_params('y', colors = color)
+  
+# Plot the CO2 levels time-series in blue
+plot_timeseries(ax, climate_change.index, climate_change['co2'], 'blue', "Time (years)", "CO2 levels")
+
+# Create a twin Axes object that shares the x-axis
+ax2 = ax.twinx()
+
+# Plot the relative temperature data in red
+# Annotate point with relative temperature >1 degree
+ax2.annotate(">1 degree", xy = (pd.Timestamp('2015-10-06'), 1), xytext = (pd.Timestamp('2008-10-06'), -0.2), arrowprops = {'arrowstyle': '->', 'color': 'gray'})
+
+plt.show()
+
+*****
+
+# Add bars for "Gold" with the label "Gold"
+ax.bar(medals.index, medals['Gold'], label = 'Gold')
+
+# Stack bars for "Silver" on top with label "Silver"
+ax.bar(medals.index, medals['Silver'], bottom = medals['Gold'], label = 'Silver')
+
+# Stack bars for "Bronze" on top of that with label "Bronze"
+ax.bar(medals.index, medals['Bronze'], bottom = medals['Gold'] + medals['Silver'], label = 'Bronze')
+
+# Display the legend
+ax.legend()
+
+plt.show()
+
+*****
+
+fig, ax = plt.subplots()
+
+# Plot a histogram of "Weight" for mens_rowing
+ax.hist(mens_rowing['Weight'], label = 'Rowing', histtype = 'step', bins = 5)
+
+# Compare to histogram of "Weight" for mens_gymnastics
+ax.hist(mens_gymnastics['Weight'], label = 'Gymnastics', histtype = 'step', bins = 5)
+
+ax.set_xlabel("Weight (kg)")
+ax.set_ylabel("# of observations")
+
+# Add the legend and show the Figure
+ax.legend()
+plt.show()
+
+*****
+
